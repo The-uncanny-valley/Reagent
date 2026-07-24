@@ -24,4 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Reagent"
 include(":app")
- 
+include(":core:database")
+include(":core:domain")
+include(":core:network")
+include(":core:ui")
