@@ -1,4 +1,4 @@
-package android.reagent.ui
+package android.reagent.designsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

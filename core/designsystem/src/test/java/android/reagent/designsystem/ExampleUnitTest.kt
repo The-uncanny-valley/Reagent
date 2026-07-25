@@ -1,4 +1,4 @@
-package android.reagent.ui
+package android.reagent.designsystem
 
 import org.junit.Test
 
