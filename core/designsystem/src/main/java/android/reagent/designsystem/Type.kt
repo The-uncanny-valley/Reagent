@@ -1,4 +1,4 @@
-package android.reagent.app.ui.theme
+package android.reagent.designsystem
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
