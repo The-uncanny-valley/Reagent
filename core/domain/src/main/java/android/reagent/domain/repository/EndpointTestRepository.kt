@@ -11,4 +11,6 @@ interface EndpointTestRepository {
         url: String,
         method: String
     ): EndpointTestResult
+
+    suspend fun deleteAllResults()
 }

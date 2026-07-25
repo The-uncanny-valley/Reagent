@@ -34,4 +34,8 @@ class EndpointTestRepositoryImpl @Inject constructor(
 
         return result
     }
+
+    override suspend fun deleteAllResults() {
+        dao.deleteAll()
+    }
 }
