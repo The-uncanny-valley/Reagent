@@ -3,7 +3,6 @@ package android.reagent.tester
 import android.reagent.designsystem.Nero
 import android.reagent.designsystem.ReagentTheme
 import android.reagent.tester.components.EndpointInputField
-import android.reagent.tester.components.EndpointResultCard
 import android.reagent.tester.components.EndpointTesterHeader
 import android.reagent.tester.components.RecentEndpointsRow
 import android.reagent.tester.components.RunRequestButton
@@ -19,9 +18,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +36,14 @@ fun EndpointTesterScreen(
     onDeleteResult: (Long) -> Unit,
     onPasteFromClipboard: () -> Unit
 ) {
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(state.history.firstOrNull()?.id) {
+        if (state.history.isNotEmpty()) {
+            listState.animateScrollToItem(0)
+        }
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Nero
@@ -78,6 +87,7 @@ fun EndpointTesterScreen(
             Spacer(Modifier.height(16.dp))
 
             LazyColumn(
+                state = listState,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(

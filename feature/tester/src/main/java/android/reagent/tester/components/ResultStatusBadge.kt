@@ -1,6 +1,7 @@
 package android.reagent.tester.components
 
 import android.reagent.designsystem.NeonGreen
+import android.reagent.designsystem.Nero
 import android.reagent.designsystem.Vermilion
 import android.reagent.tester.R
 import androidx.compose.foundation.background
@@ -41,6 +42,7 @@ fun ResultStatusBadge(
         Icon(
             modifier = Modifier.align(Alignment.Center),
             painter = icon,
+            tint = Nero,
             contentDescription = null
         )
     }

@@ -4,6 +4,7 @@ import android.reagent.designsystem.Nero
 import android.reagent.designsystem.Platinum
 import android.reagent.designsystem.ReagentTheme
 import android.reagent.tester.R
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,17 +51,20 @@ fun EndpointInputField(
         ),
 
         leadingIcon = {
-            IconButton(
-                onClick = onPasteFromClipboard
+            Box(
+                modifier = Modifier.padding(start = 4.dp),
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_clipboard),
-                    contentDescription = null,
-                    tint = Color.Unspecified
-                )
+                IconButton(
+                    onClick = onPasteFromClipboard,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_clipboard),
+                        contentDescription = "Paste from clipboard",
+                        tint = Color.Unspecified,
+                    )
+                }
             }
         },
-
         trailingIcon = {
             if (value.isNotEmpty()) {
                 IconButton(
