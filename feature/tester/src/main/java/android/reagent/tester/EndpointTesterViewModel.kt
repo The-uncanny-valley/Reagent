@@ -1,10 +1,12 @@
 package android.reagent.tester
 
 import android.reagent.domain.repository.EndpointTestRepository
+import android.reagent.tester.mapper.toUiModel
 import android.reagent.tester.state.EndpointTesterUiState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -32,18 +34,47 @@ class EndpointTesterViewModel @Inject constructor(
         viewModelScope.launch {
 
             repository.observeResults()
-                .collect { results ->
+                .catch { error ->
 
                     _uiState.update {
                         it.copy(
-                            history = results
+                            errorMessage = error.message ?: "Failed to load history"
+                        )
+                    }
+                }
+                .collect { results ->
+                    _uiState.update {
+                        it.copy(
+                            history = results.map { result ->
+                                result.toUiModel()
+                            }
                         )
                     }
                 }
         }
     }
 
-    fun runTest(url: String) {
+    fun updateUrl(url: String) {
+        _uiState.update {
+            it.copy(url = url)
+        }
+    }
+
+    fun runTest() {
+        val currentState = _uiState.value
+
+        if (currentState.isTesting) return
+
+        val url = currentState.url.trim()
+
+        if (url.isBlank()) {
+            _uiState.update { state ->
+                state.copy(errorMessage = "Enter a valid url")
+            }
+
+            return
+        }
+
          viewModelScope.launch {
 
              _uiState.update {
@@ -52,15 +83,25 @@ class EndpointTesterViewModel @Inject constructor(
                  )
              }
 
-             repository.testEndpoint(
-                 url = url,
-                 method = "GET"
-             )
-
-             _uiState.update {
-                 it.copy(
-                     isTesting = false
+             try {
+                 repository.testEndpoint(
+                     url = url,
+                     method = "GET"
                  )
+             } catch (e: CancellationException) {
+                 throw e
+             } catch (e: Exception) {
+                 _uiState.update {
+                     it.copy(
+                         errorMessage = e.message ?: "Unknown error"
+                     )
+                 }
+             } finally {
+                 _uiState.update {
+                     it.copy(
+                         isTesting = false
+                     )
+                 }
              }
          }
     }
@@ -69,10 +110,37 @@ class EndpointTesterViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.deleteAllResults()
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
-
+                _uiState.update { state ->
+                    state.copy(
+                        errorMessage = e.message ?: "Failed to clear history"
+                    )
+                }
             }
         }
     }
 
+    fun deleteResult(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository.deleteResult(id)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                _uiState.update { state ->
+                    state.copy(
+                        errorMessage = e.message ?: "Failed to delete the result"
+                    )
+                }
+            }
+        }
+    }
+
+    fun dismissError() {
+        _uiState.update { state ->
+            state.copy(errorMessage = null)
+        }
+    }
 }

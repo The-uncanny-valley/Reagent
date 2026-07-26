@@ -38,4 +38,8 @@ class EndpointTestRepositoryImpl @Inject constructor(
     override suspend fun deleteAllResults() {
         dao.deleteAll()
     }
+
+    override suspend fun deleteResult(id: Long) {
+        dao.deleteById(id = id)
+    }
 }

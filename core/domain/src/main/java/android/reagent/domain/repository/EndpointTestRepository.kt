@@ -13,4 +13,7 @@ interface EndpointTestRepository {
     ): EndpointTestResult
 
     suspend fun deleteAllResults()
+    suspend fun deleteResult(
+        id: Long
+    )
 }
