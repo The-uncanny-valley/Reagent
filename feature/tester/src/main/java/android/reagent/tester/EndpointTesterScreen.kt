@@ -25,6 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -37,6 +39,8 @@ fun EndpointTesterScreen(
     onPasteFromClipboard: () -> Unit
 ) {
     val listState = rememberLazyListState()
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(state.history.firstOrNull()?.id) {
         if (state.history.isNotEmpty()) {
@@ -75,7 +79,11 @@ fun EndpointTesterScreen(
 
             RunRequestButton(
                 enabled = !state.isTesting,
-                onClick = onRunRequest,
+                onClick = {
+                    focusManager.clearFocus()
+                    keyboardController?.hide()
+                    onRunRequest()
+                },
             )
 
             Spacer(Modifier.height(20.dp))
