@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import android.reagent.designsystem.ReagentTheme
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ChipColors
 
@@ -57,7 +58,8 @@ fun RecentEndpointsRow(
                         disabledLabelColor = Platinum,
                         disabledLeadingIconContentColor = Platinum,
                         disabledTrailingIconContentColor = Platinum,
-                    )
+                    ),
+                    border = BorderStroke(color = Platinum, width = 1.dp)
                 )
             }
         }

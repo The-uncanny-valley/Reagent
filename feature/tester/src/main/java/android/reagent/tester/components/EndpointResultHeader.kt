@@ -1,5 +1,6 @@
 package android.reagent.tester.components
 
+import android.reagent.designsystem.Platinum
 import android.reagent.tester.model.EndpointResultUiModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -42,7 +43,7 @@ fun EndpointResultHeader(
         )
 
         Text(
-            "${result.durationMs} ms"
+            text = "${result.durationMs} ms"
         )
 
         Spacer(
@@ -50,7 +51,7 @@ fun EndpointResultHeader(
         )
 
         VerticalPipe(
-            color = Color.Black
+            color = Platinum
         )
 
         Spacer(
@@ -58,7 +59,7 @@ fun EndpointResultHeader(
         )
 
         Text(
-            result.time
+            text = result.time
         )
     }
 }

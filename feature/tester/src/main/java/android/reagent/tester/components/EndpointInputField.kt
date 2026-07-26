@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 fun EndpointInputField(
     value: String,
     onValueChange: (String) -> Unit,
+    onPasteFromClipboard: () -> Unit
 ) {
     TextField(
         value = value,
@@ -48,11 +49,15 @@ fun EndpointInputField(
         ),
 
         leadingIcon = {
-            Icon(
-                painter = painterResource(R.drawable.ic_clipboard),
-                contentDescription = null,
-                tint = Color.Unspecified
-            )
+            IconButton(
+                onClick = onPasteFromClipboard
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_clipboard),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+            }
         },
 
         trailingIcon = {
@@ -77,7 +82,8 @@ private fun EndpointInputFieldPreview() {
     ReagentTheme {
         EndpointInputField(
             value = "example.com",
-            onValueChange = {}
+            onValueChange = {},
+            onPasteFromClipboard = {}
         )
     }
 }

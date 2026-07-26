@@ -9,7 +9,6 @@ import android.reagent.tester.components.RecentEndpointsRow
 import android.reagent.tester.components.RunRequestButton
 import android.reagent.tester.model.EndpointResultUiModel
 import android.reagent.tester.state.EndpointTesterUiState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -33,11 +32,11 @@ fun EndpointTesterScreen(
     onUrlChange: (String) -> Unit,
     onRunRequest: () -> Unit,
     onDeleteResult: (Long) -> Unit,
+    onPasteFromClipboard: () -> Unit
 ) {
     Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Nero)
+        modifier = Modifier.fillMaxSize(),
+        color = Nero
     ) {
         Column(
             modifier = Modifier
@@ -59,6 +58,7 @@ fun EndpointTesterScreen(
             EndpointInputField(
                 value = state.url,
                 onValueChange = onUrlChange,
+                onPasteFromClipboard = onPasteFromClipboard
             )
 
             Spacer(Modifier.height(18.dp))
@@ -133,7 +133,8 @@ fun EndpointTesterScreenPreview() {
             ),
             onUrlChange = {},
             onRunRequest = {},
-            onDeleteResult = {}
+            onDeleteResult = {},
+            onPasteFromClipboard = {}
         )
     }
 }
