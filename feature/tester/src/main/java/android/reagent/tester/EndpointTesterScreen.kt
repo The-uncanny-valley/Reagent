@@ -78,7 +78,7 @@ fun EndpointTesterScreen(
             Spacer(Modifier.height(18.dp))
 
             RunRequestButton(
-                enabled = !state.isTesting,
+                loading = state.isTesting,
                 onClick = {
                     focusManager.clearFocus()
                     keyboardController?.hide()

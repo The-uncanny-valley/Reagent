@@ -1,6 +1,7 @@
 package android.reagent.tester.components
 
 import android.reagent.data.R
+import android.reagent.designsystem.Nero
 import android.reagent.designsystem.NeonYellow
 import android.reagent.designsystem.ReagentTheme
 import androidx.compose.animation.core.animateFloatAsState
@@ -8,12 +9,15 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +33,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RunRequestButton(
     modifier: Modifier = Modifier,
-    enabled: Boolean,
+    loading: Boolean = false,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -49,23 +54,33 @@ fun RunRequestButton(
             .scale(scale)
             .background(NeonYellow),
 
-        enabled = enabled,
+        enabled = enabled && !loading,
 
         onClick = onClick,
 
         shape = RoundedCornerShape(16.dp)
     ) {
 
-        Icon(
-            painter = painterResource(android.reagent.tester.R.drawable.ic_play),
-            contentDescription = null
-        )
+        if (loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(20.dp),
+                color = Nero,
+                strokeWidth = 2.dp
+            )
+        } else {
+            Icon(
+                painter = painterResource(android.reagent.tester.R.drawable.ic_play),
+                contentDescription = null
+            )
+        }
 
         Spacer(
             Modifier.width(8.dp)
         )
 
-        Text("Run Request")
+        Text(
+            text = if (loading) "Running..." else "Run Request"
+        )
     }
 }
 
@@ -73,9 +88,16 @@ fun RunRequestButton(
 @Composable
 private fun RunRequestButton_Preview() {
     ReagentTheme {
-        RunRequestButton(
-            enabled = true,
-            onClick = {}
-        )
+        Column {
+            RunRequestButton(
+                loading = false,
+                onClick = {}
+            )
+            Spacer(Modifier.height(8.dp))
+            RunRequestButton(
+                loading = true,
+                onClick = {}
+            )
+        }
     }
 }
