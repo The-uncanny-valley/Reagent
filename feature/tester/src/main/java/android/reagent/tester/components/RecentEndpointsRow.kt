@@ -1,5 +1,7 @@
 package android.reagent.tester.components
 
+import android.reagent.designsystem.Nero
+import android.reagent.designsystem.Platinum
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import android.reagent.designsystem.ReagentTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ChipColors
 
 @Composable
 fun RecentEndpointsRow(
@@ -24,7 +27,8 @@ fun RecentEndpointsRow(
 
         Text(
             text = "Recent",
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelMedium,
+            color = Platinum
         )
 
         Spacer(
@@ -43,7 +47,17 @@ fun RecentEndpointsRow(
                     label = {
                         Text(endpoint)
                     },
-                    shape = RoundedCornerShape(25.dp)
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ChipColors(
+                        containerColor = Nero,
+                        labelColor = Platinum,
+                        leadingIconContentColor = Platinum,
+                        trailingIconContentColor = Platinum,
+                        disabledContainerColor = Nero,
+                        disabledLabelColor = Platinum,
+                        disabledLeadingIconContentColor = Platinum,
+                        disabledTrailingIconContentColor = Platinum,
+                    )
                 )
             }
         }
