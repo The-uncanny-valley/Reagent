@@ -7,12 +7,14 @@ import android.reagent.domain.RequestErrorType
 
 sealed interface EndpointTestResult {
 
+    val id: Long
     val url: String
     val method: String
     val startedAt: Long
     val durationMs: Long
 
     data class HttpResponse(
+        override val id: Long,
         override val url: String,
         override val method: String,
         override val startedAt: Long,
@@ -29,6 +31,7 @@ sealed interface EndpointTestResult {
     ) : EndpointTestResult
 
     data class Failure(
+        override val id: Long,
         override val url: String,
         override val method: String,
         override val startedAt: Long,
@@ -50,6 +53,7 @@ sealed interface EndpointTestResult {
     ) : EndpointTestResult
 
     data class Cancelled(
+        override val id: Long,
         override val url: String,
         override val method: String,
         override val startedAt: Long,

@@ -7,6 +7,7 @@ import android.reagent.tester.components.EndpointResultCard
 import android.reagent.tester.components.EndpointTesterHeader
 import android.reagent.tester.components.RecentEndpointsRow
 import android.reagent.tester.components.RunRequestButton
+import android.reagent.tester.components.SwipeToDeleteResultItem
 import android.reagent.tester.model.EndpointResultUiModel
 import android.reagent.tester.state.EndpointTesterUiState
 import androidx.compose.foundation.layout.Arrangement
@@ -84,11 +85,11 @@ fun EndpointTesterScreen(
                     key = { it.id }
                 ) { result ->
 
-                    EndpointResultCard(
+                    SwipeToDeleteResultItem(
                         result = result,
                         onDelete = {
                             onDeleteResult(result.id)
-                        }
+                        },
                     )
                 }
             }

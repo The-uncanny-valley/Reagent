@@ -10,6 +10,7 @@ import android.reagent.domain.model.EndpointTestResult
 fun EndpointTestResultEntity.toDomain(): EndpointTestResult {
     return when (outcome) {
         RequestOutcome.HTTP_RESPONSE -> EndpointTestResult.HttpResponse(
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,
@@ -25,12 +26,14 @@ fun EndpointTestResultEntity.toDomain(): EndpointTestResult {
             redirectCount = redirectCount ?: 0,
         )
         RequestOutcome.CANCELLED -> EndpointTestResult.Cancelled(
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,
             durationMs = durationMs,
         )
         RequestOutcome.TRANSPORT_ERROR, RequestOutcome.LOCAL_ERROR -> EndpointTestResult.Failure(
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,
@@ -56,7 +59,7 @@ fun EndpointTestResultEntity.toDomain(): EndpointTestResult {
 fun EndpointTestResult.toEntity(): EndpointTestResultEntity {
     return when (this) {
         is EndpointTestResult.HttpResponse -> EndpointTestResultEntity(
-            id = 0,
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,
@@ -87,7 +90,7 @@ fun EndpointTestResult.toEntity(): EndpointTestResultEntity {
             resolvedApiAddress = null
         )
         is EndpointTestResult.Failure -> EndpointTestResultEntity(
-            id = 0,
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,
@@ -119,7 +122,7 @@ fun EndpointTestResult.toEntity(): EndpointTestResultEntity {
             resolvedApiAddress = resolvedIpAddress
         )
         is EndpointTestResult.Cancelled -> EndpointTestResultEntity(
-            id = 0,
+            id = id,
             url = url,
             method = method,
             startedAt = startedAt,

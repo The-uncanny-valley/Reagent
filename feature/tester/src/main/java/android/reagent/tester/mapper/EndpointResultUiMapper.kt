@@ -14,7 +14,7 @@ fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
         is EndpointTestResult.HttpResponse -> {
 
             EndpointResultUiModel(
-                id = hashCode().toLong(),
+                id = id,
 
                 method = method,
 
@@ -41,7 +41,7 @@ fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
         is EndpointTestResult.Failure -> {
 
             EndpointResultUiModel(
-                id = hashCode().toLong(),
+                id = id,
 
                 method = method,
 
@@ -63,7 +63,7 @@ fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
         is EndpointTestResult.Cancelled -> {
 
             EndpointResultUiModel(
-                id = hashCode().toLong(),
+                id = id,
 
                 method = method,
 

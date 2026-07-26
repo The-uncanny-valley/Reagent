@@ -47,6 +47,7 @@ class EndpointRequestExecutor @Inject constructor(
 
 
                 return@withContext EndpointTestResult.HttpResponse(
+                    id = 0,
                     url = url,
                     method = method,
                     startedAt = startedAt,
@@ -73,6 +74,7 @@ class EndpointRequestExecutor @Inject constructor(
                 SystemClock.elapsedRealtime() - startElapsed
 
             return@withContext EndpointTestResult.Cancelled(
+                id = 0,
                 url = url,
                 method = method,
                 startedAt = startedAt,
@@ -87,6 +89,7 @@ class EndpointRequestExecutor @Inject constructor(
             val rootCause = getRootCause(e)
 
             return@withContext EndpointTestResult.Failure(
+                id = 0,
                 url = url,
                 method = method,
                 startedAt = startedAt,
