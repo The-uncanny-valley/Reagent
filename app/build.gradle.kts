@@ -67,4 +67,6 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:domain"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:data"))
+    implementation(project(":feature:tester"))
 }
