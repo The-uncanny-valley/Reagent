@@ -39,13 +39,21 @@ fun EndpointTesterScreen(
     onDeleteResult: (Long) -> Unit,
     onPasteFromClipboard: () -> Unit
 ) {
-    val listState = rememberLazyListState()
+    val recentEndpointListState = rememberLazyListState()
+    val historyListState = rememberLazyListState()
+
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(state.history.firstOrNull()?.id) {
         if (state.history.isNotEmpty()) {
-            listState.animateScrollToItem(0)
+            historyListState.animateScrollToItem(0)
+        }
+    }
+
+    LaunchedEffect(state.recentEndpoints.firstOrNull()) {
+        if (state.recentEndpoints.isNotEmpty()) {
+            recentEndpointListState.animateScrollToItem(0)
         }
     }
 
@@ -90,6 +98,7 @@ fun EndpointTesterScreen(
             Spacer(Modifier.height(20.dp))
 
             RecentEndpointsRow(
+                listState = recentEndpointListState,
                 endpoints = state.recentEndpoints,
                 onRunRecentRequest = onRunRecentRequest
             )
@@ -97,7 +106,7 @@ fun EndpointTesterScreen(
             Spacer(Modifier.height(16.dp))
 
             LazyColumn(
-                state = listState,
+                state = historyListState,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(

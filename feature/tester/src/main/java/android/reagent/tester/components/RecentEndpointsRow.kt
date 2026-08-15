@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import android.reagent.designsystem.ReagentTheme
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ChipColors
 import androidx.compose.ui.Alignment
@@ -25,7 +27,8 @@ import androidx.compose.ui.Alignment
 @Composable
 fun RecentEndpointsRow(
     endpoints: List<String>,
-    onRunRecentRequest: (String) -> Unit
+    onRunRecentRequest: (String) -> Unit,
+    listState: LazyListState = rememberLazyListState()
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -43,6 +46,7 @@ fun RecentEndpointsRow(
 
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
+            state = listState,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
