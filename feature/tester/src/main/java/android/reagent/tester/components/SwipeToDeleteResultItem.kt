@@ -1,5 +1,6 @@
 package android.reagent.tester.components
 
+import android.reagent.designsystem.ReagentTheme
 import android.reagent.tester.model.EndpointResultUiModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import android.reagent.tester.R
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwipeToDeleteResultItem(
@@ -91,5 +93,29 @@ private fun DeleteBackground(
                 )
             }
         }
+    }
+}
+
+@Preview()
+@Composable
+private fun SwipeToDeleteResultItemPreview() {
+    ReagentTheme {
+        SwipeToDeleteResultItem(
+            result = EndpointResultUiModel(
+                id = 1L,
+                method = "GET",
+                url = "https://api.example.com/v1/status",
+                statusText = "200 OK",
+                durationMs = 124,
+                time = "12:00:00",
+                isSuccessful = true,
+                body = """
+                    {
+                      "status": "success"
+                    }
+                """.trimIndent(),
+            ),
+            onDelete = {},
+        )
     }
 }
