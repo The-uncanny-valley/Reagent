@@ -2,7 +2,9 @@ package android.reagent.tester.components
 
 import android.reagent.designsystem.Platinum
 import android.reagent.tester.model.EndpointResultUiModel
+import androidx.compose.foundation.MarqueeAnimationMode
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,11 +38,18 @@ fun EndpointResultHeader(
 
         Text(
             text = result.statusText,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .basicMarquee(
+                    iterations = Int.MAX_VALUE,
+                    animationMode = MarqueeAnimationMode.Immediately,
+                    repeatDelayMillis = 1700,
+                    initialDelayMillis = 1000,
+                    velocity = 30.dp
+                ),
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
         )
 
         Spacer(Modifier.width(12.dp))
