@@ -10,7 +10,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,7 +46,15 @@ class EndpointTesterViewModel @Inject constructor(
                         it.copy(
                             history = results.map { result ->
                                 result.toUiModel()
-                            }
+                            },
+                            recentEndpoints = results
+                                .distinctBy { result ->
+                                    result.url
+                                }
+                                .take(5)
+                                .map { result ->
+                                    result.url
+                                }
                         )
                     }
                 }
@@ -106,6 +113,14 @@ class EndpointTesterViewModel @Inject constructor(
          }
     }
 
+    fun runRecentEndpoint(url: String) {
+        _uiState.update {
+            it.copy(url = url)
+        }
+
+        runTest()
+    }
+
     fun deleteAll() {
         viewModelScope.launch {
             try {
@@ -139,8 +154,8 @@ class EndpointTesterViewModel @Inject constructor(
     }
 
     fun dismissError() {
-        _uiState.update { state ->
-            state.copy(errorMessage = null)
+        _uiState.update {
+            it.copy(errorMessage = null)
         }
     }
 }

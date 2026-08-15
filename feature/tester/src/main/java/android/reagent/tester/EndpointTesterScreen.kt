@@ -35,6 +35,7 @@ fun EndpointTesterScreen(
     state: EndpointTesterUiState,
     onUrlChange: (String) -> Unit,
     onRunRequest: () -> Unit,
+    onRunRecentRequest: (String) -> Unit,
     onDeleteResult: (Long) -> Unit,
     onPasteFromClipboard: () -> Unit
 ) {
@@ -90,6 +91,7 @@ fun EndpointTesterScreen(
 
             RecentEndpointsRow(
                 endpoints = state.recentEndpoints,
+                onRunRecentRequest = onRunRecentRequest
             )
 
             Spacer(Modifier.height(16.dp))
@@ -152,6 +154,7 @@ fun EndpointTesterScreenPreview() {
             ),
             onUrlChange = {},
             onRunRequest = {},
+            onRunRecentRequest = {},
             onDeleteResult = {},
             onPasteFromClipboard = {}
         )

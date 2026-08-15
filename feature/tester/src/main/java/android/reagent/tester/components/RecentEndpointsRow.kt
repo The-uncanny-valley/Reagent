@@ -22,7 +22,8 @@ import androidx.compose.material3.ChipColors
 
 @Composable
 fun RecentEndpointsRow(
-    endpoints: List<String>
+    endpoints: List<String>,
+    onRunRecentRequest: (String) -> Unit
 ) {
     Column {
 
@@ -40,10 +41,15 @@ fun RecentEndpointsRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            items(endpoints) { endpoint ->
+            items(
+                items = endpoints,
+                key = { endpoint -> endpoint }
+            ) { endpoint ->
 
                 AssistChip(
-                    onClick = {},
+                    onClick = {
+                        onRunRecentRequest(endpoint)
+                    },
                     modifier = Modifier.height(40.dp),
                     label = {
                         Text(endpoint)
@@ -75,7 +81,8 @@ fun RecentEndpointsRowPreview() {
                 "https://api.example.com/v1",
                 "https://api.test.org/auth",
                 "localhost:8080/debug"
-            )
+            ),
+            onRunRecentRequest = {}
         )
     }
 }

@@ -19,6 +19,7 @@ fun EndpointTesterRoute(
         state = state,
         onUrlChange = viewModel::updateUrl,
         onRunRequest = viewModel::runTest,
+        onRunRecentRequest = viewModel::runRecentEndpoint,
         onDeleteResult = viewModel::deleteResult,
         onPasteFromClipboard = {
             val clipboardText = readClipboardText(context)
