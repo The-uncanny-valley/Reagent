@@ -92,7 +92,7 @@ fun EndpointTesterScreen(
                     focusManager.clearFocus()
                     keyboardController?.hide()
                     onRunRequest()
-                },
+                }
             )
 
             Spacer(Modifier.height(20.dp))
@@ -111,14 +111,18 @@ fun EndpointTesterScreen(
             ) {
                 items(
                     items = state.history,
-                    key = { it.id }
+                    key = { result ->
+                        result.id
+                    },
+                    contentType = {
+                        "endpoint_result"
+                    }
                 ) { result ->
-
                     SwipeToDeleteResultItem(
                         result = result,
                         onDelete = {
                             onDeleteResult(result.id)
-                        },
+                        }
                     )
                 }
             }
