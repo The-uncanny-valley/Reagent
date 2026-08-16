@@ -48,6 +48,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.jsoup)
 
     implementation(project(":core:network"))
     implementation(project(":core:domain"))
