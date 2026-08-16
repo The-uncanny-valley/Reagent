@@ -23,7 +23,7 @@ fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
                 durationMs = durationMs,
                 time = formatTime(startedAt),
                 isSuccessful = isSuccessful,
-                body = body,
+                body = body?.formatJsonIfPossible()
             )
         }
 
