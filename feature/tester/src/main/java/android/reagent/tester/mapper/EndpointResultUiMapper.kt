@@ -10,73 +10,47 @@ import java.util.Locale
 fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
 
     return when (this) {
-
         is EndpointTestResult.HttpResponse -> {
-
             EndpointResultUiModel(
                 id = id,
-
                 method = method,
-
                 url = url,
-
-                statusText =
-                    if (statusMessage != null) {
-                        "$statusCode $statusMessage"
-                    } else {
-                        statusCode.toString()
-                    },
-
+                statusText = if (statusMessage != null) {
+                    "$statusCode $statusMessage"
+                } else {
+                    statusCode.toString()
+                },
                 durationMs = durationMs,
-
                 time = formatTime(startedAt),
-
                 isSuccessful = isSuccessful,
-
                 body = body,
             )
         }
 
 
         is EndpointTestResult.Failure -> {
-
             EndpointResultUiModel(
                 id = id,
-
                 method = method,
-
                 url = url,
-
                 statusText = errorType.name,
-
                 durationMs = durationMs,
-
                 time = formatTime(startedAt),
-
                 isSuccessful = false,
-
                 body = technicalMessage,
             )
         }
 
 
         is EndpointTestResult.Cancelled -> {
-
             EndpointResultUiModel(
                 id = id,
-
                 method = method,
-
                 url = url,
-
                 statusText = "Cancelled",
-
                 durationMs = durationMs,
-
                 time = formatTime(startedAt),
-
                 isSuccessful = false,
-
                 body = null,
             )
         }
