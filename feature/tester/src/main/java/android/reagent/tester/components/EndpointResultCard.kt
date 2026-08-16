@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -88,11 +89,14 @@ fun ResponseBodyPreview(
             )
             .padding(12.dp)
     ) {
+        val preview = body.take(1_000)
 
         Text(
-            text = body,
+            text = preview,
             fontFamily = FontFamily.Monospace,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 10,
+            overflow = TextOverflow.MiddleEllipsis
         )
     }
 }
