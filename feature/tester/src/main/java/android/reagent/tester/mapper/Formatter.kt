@@ -4,6 +4,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 internal fun String.formatResponseIfPossible(
     contentType: String?
@@ -107,3 +110,14 @@ private fun String?.isXml(): Boolean {
     ) == true
 }
 
+internal fun formatTime(
+    timestamp: Long,
+): String {
+
+    return SimpleDateFormat(
+        "HH:mm:ss",
+        Locale.getDefault(),
+    ).format(
+        Date(timestamp)
+    )
+}

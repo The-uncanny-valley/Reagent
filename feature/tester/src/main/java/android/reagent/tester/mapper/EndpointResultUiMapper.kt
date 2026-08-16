@@ -2,10 +2,6 @@ package android.reagent.tester.mapper
 
 import android.reagent.domain.model.EndpointTestResult
 import android.reagent.tester.model.EndpointResultUiModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-
 
 fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
 
@@ -57,17 +53,4 @@ fun EndpointTestResult.toUiModel(): EndpointResultUiModel {
             )
         }
     }
-}
-
-
-private fun formatTime(
-    timestamp: Long,
-): String {
-
-    return SimpleDateFormat(
-        "HH:mm:ss",
-        Locale.getDefault(),
-    ).format(
-        Date(timestamp)
-    )
 }
