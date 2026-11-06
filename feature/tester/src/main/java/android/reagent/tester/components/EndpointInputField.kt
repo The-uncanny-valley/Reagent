@@ -39,7 +39,6 @@ fun EndpointInputField(
             keyboardType = KeyboardType.Uri,
             autoCorrectEnabled = false
         ),
-
         colors = TextFieldDefaults.colors(
             focusedContainerColor = Platinum,
             unfocusedContainerColor = Platinum,
@@ -59,36 +58,50 @@ fun EndpointInputField(
             Box(
                 modifier = Modifier.padding(start = 4.dp),
             ) {
-                IconButton(
-                    onClick = onPasteFromClipboard,
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_clipboard),
-                        contentDescription = "Paste from clipboard",
-                        tint = Color.Unspecified,
-                    )
-                }
+                PasteButton(onPasteFromClipboard)
             }
         },
         trailingIcon = {
             if (value.isNotEmpty()) {
-                IconButton(
-                    onClick = { onValueChange("") }
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_cross),
-                        contentDescription = "Clear",
-                        tint = Nero
-                    )
-                }
+                ClearButton(onValueChange)
             }
-        },
+        }
     )
+}
+
+@Composable
+private fun ClearButton(
+    onValueChange: (String) -> Unit
+) {
+    IconButton(
+        onClick = { onValueChange("") }
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_cross),
+            contentDescription = "Clear",
+            tint = Nero
+        )
+    }
+}
+
+@Composable
+private fun PasteButton(
+    onValueChange: () -> Unit
+) {
+    IconButton(
+        onClick = onValueChange,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_clipboard),
+            contentDescription = "Paste from clipboard",
+            tint = Color.Unspecified,
+        )
+    }
 }
 
 @Preview
 @Composable
-private fun EndpointInputFieldPreview() {
+private fun EndpointInputField_Preview() {
     ReagentTheme {
         EndpointInputField(
             value = "example.com",

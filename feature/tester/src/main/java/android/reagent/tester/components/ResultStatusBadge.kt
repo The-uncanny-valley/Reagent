@@ -31,25 +31,32 @@ fun ResultStatusBadge(
                 } else {
                     Vermilion
                 }
-            )
+            ),
+        contentAlignment = Alignment.Center
     ) {
-        val icon = if (success) {
-            painterResource(R.drawable.ic_tick)
-        } else {
-            painterResource(R.drawable.ic_cross)
-        }
-
-        Icon(
-            modifier = Modifier.align(Alignment.Center),
-            painter = icon,
-            tint = Nero,
-            contentDescription = null
-        )
+        ResultStatusIcon(success = success)
     }
+}
+
+@Composable
+private fun ResultStatusIcon(
+    success: Boolean
+) {
+    val icon = if (success) {
+        painterResource(R.drawable.ic_tick)
+    } else {
+        painterResource(R.drawable.ic_cross)
+    }
+
+    Icon(
+        painter = icon,
+        tint = Nero,
+        contentDescription = null
+    )
 }
 
 @Preview
 @Composable
-private fun ResultStatusBadgePreview() {
+private fun ResultStatusBadge_Preview() {
     ResultStatusBadge(success = true)
 }

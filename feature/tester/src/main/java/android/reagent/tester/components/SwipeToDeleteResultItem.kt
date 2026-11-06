@@ -53,10 +53,9 @@ fun SwipeToDeleteResultItem(
         },
         content = {
             EndpointResultCard(
-                result = result,
-                onDelete = onDelete,
+                result = result
             )
-        },
+        }
     )
 }
 

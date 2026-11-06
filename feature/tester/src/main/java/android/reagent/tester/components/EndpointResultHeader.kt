@@ -1,6 +1,7 @@
 package android.reagent.tester.components
 
 import android.reagent.designsystem.Platinum
+import android.reagent.designsystem.ReagentTheme
 import android.reagent.tester.model.EndpointResultUiModel
 import androidx.compose.foundation.MarqueeAnimationMode
 import androidx.compose.foundation.background
@@ -20,11 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.sql.Timestamp
 
 @Composable
 fun EndpointResultHeader(
     result: EndpointResultUiModel,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier,
@@ -36,29 +38,14 @@ fun EndpointResultHeader(
 
         Spacer(Modifier.width(16.dp))
 
-        Text(
+        StatusText(
             text = result.statusText,
-            modifier = Modifier
-                .weight(1f)
-                .basicMarquee(
-                    iterations = Int.MAX_VALUE,
-                    animationMode = MarqueeAnimationMode.Immediately,
-                    repeatDelayMillis = 1700,
-                    initialDelayMillis = 1000,
-                    velocity = 30.dp
-                ),
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1
+            modifier = Modifier.weight(1f)
         )
 
         Spacer(Modifier.width(12.dp))
 
-        Text(
-            text = "${result.durationMs} ms",
-            maxLines = 1,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Duration("${result.durationMs} ms")
 
         Spacer(Modifier.width(12.dp))
 
@@ -68,12 +55,40 @@ fun EndpointResultHeader(
 
         Spacer(Modifier.width(12.dp))
 
-        Text(
-            text = result.time,
-            maxLines = 1,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Timestamp(result.time)
     }
+}
+
+@Composable
+private fun StatusText(
+    text: String,
+    modifier: Modifier
+) {
+    Text(
+        text = text,
+        modifier = modifier
+            .basicMarquee(
+                iterations = Int.MAX_VALUE,
+                animationMode = MarqueeAnimationMode.Immediately,
+                repeatDelayMillis = 1700,
+                initialDelayMillis = 1000,
+                velocity = 30.dp
+            ),
+        style = MaterialTheme.typography.bodyLarge,
+        fontWeight = FontWeight.Bold,
+        maxLines = 1
+    )
+}
+
+@Composable
+private fun Duration(
+    text: String
+) {
+    Text(
+        text = text,
+        maxLines = 1,
+        style = MaterialTheme.typography.bodyMedium,
+    )
 }
 
 @Composable
@@ -86,4 +101,34 @@ private fun VerticalPipe(
             .width(1.dp)
             .background(color),
     )
+}
+
+@Composable
+private fun Timestamp(
+    time: String
+) {
+    Text(
+        text = time,
+        maxLines = 1,
+        style = MaterialTheme.typography.bodyMedium,
+    )
+}
+
+@Preview
+@Composable
+fun EndpointResultHeader_Preview() {
+    ReagentTheme {
+        EndpointResultHeader(
+            result = EndpointResultUiModel(
+                id = 1L,
+                method = "GET",
+                url = "https://example.com/api/v1/resource",
+                statusText = "200 OK",
+                durationMs = 124,
+                time = "12:00:00",
+                isSuccessful = true,
+                body = "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Test Resource\"\n  }\n}"
+            )
+        )
+    }
 }

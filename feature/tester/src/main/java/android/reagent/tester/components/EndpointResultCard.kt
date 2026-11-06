@@ -28,8 +28,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EndpointResultCard(
-    result: EndpointResultUiModel,
-    onDelete: () -> Unit
+    result: EndpointResultUiModel
 ) {
     Card(
         modifier = Modifier
@@ -38,11 +37,9 @@ fun EndpointResultCard(
         shape = RoundedCornerShape(20.dp),
         border = BorderStroke(1.dp, Platinum)
     ) {
-
         Column(
             modifier = Modifier.padding(12.dp)
         ) {
-
             EndpointResultHeader(
                 result = result
             )
@@ -56,9 +53,7 @@ fun EndpointResultCard(
                 style = MaterialTheme.typography.bodySmall
             )
 
-
             if (result.body != null) {
-
                 Spacer(
                     Modifier.height(12.dp)
                 )
@@ -115,8 +110,7 @@ fun EndpointResultCard_Preview() {
                 time = "12:00:00",
                 isSuccessful = true,
                 body = "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Test Resource\"\n  }\n}"
-            ),
-            onDelete = {}
+            )
         )
     }
 }

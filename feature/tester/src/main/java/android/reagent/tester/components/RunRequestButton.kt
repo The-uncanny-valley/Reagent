@@ -60,18 +60,10 @@ fun RunRequestButton(
 
         shape = RoundedCornerShape(16.dp)
     ) {
-
         if (loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(20.dp),
-                color = Nero,
-                strokeWidth = 2.dp
-            )
+            Spinner()
         } else {
-            Icon(
-                painter = painterResource(android.reagent.tester.R.drawable.ic_play),
-                contentDescription = null
-            )
+            RunIcon()
         }
 
         Spacer(
@@ -84,6 +76,23 @@ fun RunRequestButton(
     }
 }
 
+@Composable
+private fun RunIcon() {
+    Icon(
+        painter = painterResource(android.reagent.tester.R.drawable.ic_play),
+        contentDescription = null
+    )
+}
+
+@Composable
+private fun Spinner() {
+    CircularProgressIndicator(
+        modifier = Modifier.size(20.dp),
+        color = Nero,
+        strokeWidth = 2.dp
+    )
+}
+
 @Preview
 @Composable
 private fun RunRequestButton_Preview() {
@@ -93,7 +102,9 @@ private fun RunRequestButton_Preview() {
                 loading = false,
                 onClick = {}
             )
+
             Spacer(Modifier.height(8.dp))
+
             RunRequestButton(
                 loading = true,
                 onClick = {}
